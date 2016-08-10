@@ -1,3 +1,2 @@
 # Algorithm
-Solutions for algorithm problems.
-LeetCode
+A backup of my answers
