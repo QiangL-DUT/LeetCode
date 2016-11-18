@@ -9,53 +9,53 @@
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        Heap.resize(lists.size());
+        heap.resize(lists.size());
         int n = 0;
         for (int i = 0; i < lists.size(); ++i) {
             if (lists[i] != NULL) {
-                Heap[n++] = lists[i];
+                heap[n++] = lists[i];
             }
         }
         if (n == 0) return NULL;
-        if (n == 1) return Heap[0];
-        BuildMinHeap(Heap, n);
-        ListNode* result = Heap[0];
+        if (n == 1) return heap[0];
+        BuildMinHeap(heap, n);
+        ListNode* result = heap[0];
         ListNode* cur = result;
         while (n > 1) {
-            if (Heap[0]->next != NULL) {
-                Heap[0] = Heap[0]->next;
+            if (heap[0]->next != NULL) {
+                heap[0] = heap[0]->next;
             }
             else {
-                Heap[0] = Heap[--n];
+                heap[0] = heap[--n];
             }
-            MinHeapify(Heap, n, 0);
-            cur->next = Heap[0];
+            MinHeapify(heap, n, 0);
+            cur->next = heap[0];
             cur = cur->next;
         }
         return result;
     }
 private:
-    void MinHeapify(vector<ListNode*>& Heap, int n, int p) {
+    void MinHeapify(vector<ListNode*>& heap, int n, int p) {
         int left = 2 * p + 1;
         int right = 2 * p + 2;
         int curIndex = p;
-        if ((left < n) && (Heap[left]->val < Heap[curIndex]->val)) {
+        if ((left < n) && (heap[left]->val < heap[curIndex]->val)) {
             curIndex = left;
         }
-        if ((right < n) && (Heap[right]->val < Heap[curIndex]->val)) {
+        if ((right < n) && (heap[right]->val < heap[curIndex]->val)) {
             curIndex = right;
         }
         if (curIndex != p) {
-            ListNode* temp = Heap[p];
-            Heap[p] = Heap[curIndex];
-            Heap[curIndex] = temp;
-            MinHeapify(Heap, n, curIndex);
+            ListNode* temp = heap[p];
+            heap[p] = heap[curIndex];
+            heap[curIndex] = temp;
+            MinHeapify(heap, n, curIndex);
         }
     }
-    void BuildMinHeap(vector<ListNode*>& Heap, int n) {
+    void BuildMinHeap(vector<ListNode*>& heap, int n) {
         for (int i = (n - 1) / 2; i >= 0; --i) {
-            MinHeapify(Heap, n, i);
+            MinHeapify(heap, n, i);
         }
     }
-    vector<ListNode*> Heap;
+    vector<ListNode*> heap;
 };
