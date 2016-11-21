@@ -27,10 +27,9 @@ public:
 *         if ((head == NULL) || (head->next == NULL)) {
 *             return head;
 *         }
-*         ListNode *tail = head->next;
 *         ListNode *rest = reverseList(head->next);
+*         head->next->next = head;
 *         head->next = NULL;
-*         tail->next = head;
 *         return rest;
 *     }
 * };
