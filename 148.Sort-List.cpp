@@ -18,10 +18,10 @@ public:
             temp = temp->next;
             ++n;
         }
-        return sortList(head, n);
+        return mergeSort(head, n);
     }
 private:
-    ListNode* sortList(ListNode *head, int n) {
+    ListNode* mergeSort(ListNode *head, int n) {
         if (n == 1) {
             head->next = NULL;
             return head;
@@ -31,8 +31,8 @@ private:
         for (int i = 0; i < k; ++i) {
             mid = mid->next;
         }
-        ListNode *sort_pre = sortList(head, k);
-        ListNode *sort_next = sortList(mid, n - k);
+        ListNode *sort_pre = mergeSort(head, k);
+        ListNode *sort_next = mergeSort(mid, n - k);
         ListNode dummy(0);
         ListNode *tail = &dummy;
         while ((sort_pre != NULL) && (sort_next != NULL)) {
