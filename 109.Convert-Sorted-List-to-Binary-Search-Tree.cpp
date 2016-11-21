@@ -18,10 +18,8 @@
 class Solution {
 public:
     TreeNode* sortedListToBST(ListNode *head) {
-        ListNode *temp = head;
         int len = 0;
-        while (temp != NULL) {
-            temp = temp->next;
+        for (ListNode *temp = head; temp != NULL; temp = temp->next) {
             ++len;
         }
         return sortedListToBST(head, len);
