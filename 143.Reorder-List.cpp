@@ -12,19 +12,19 @@ public:
         if (head == NULL) {
             return;
         }
-        int n = 0;
+        int len = 0;
         for (ListNode *temp = head; temp != NULL; temp = temp->next) {
-            ++n;
+            ++len;
         }
-        ListNode *tail = head;
-        for (int i = 0; i < (n - 1) / 2; ++i) {
-            tail = tail->next;
+        ListNode *mid = head;
+        for (int i = 0; i < (len - 1) / 2; ++i) {
+            mid = mid->next;
         }
-        ListNode *right = reverseList(tail->next);
+        ListNode *right = reverseList(mid->next);
         ListNode *left = head;
-        tail->next = NULL;
+        mid->next = NULL;
         ListNode dummy(0);
-        tail = &dummy;
+        ListNode *tail = &dummy;
         while (right != NULL) {
             tail->next = left;
             tail = tail->next;
@@ -37,14 +37,13 @@ public:
     }
 private:
     ListNode* reverseList(ListNode* head) {
-        ListNode dummy(0);
-        ListNode *pre = &dummy;
+        ListNode *pre = NULL;
         while (head != NULL) {
             ListNode *cur = head;
             head = head->next;
-            cur->next = pre->next;
-            pre->next = cur;
+            cur->next = pre;
+            pre = cur;
         }
-        return dummy.next;
+        return pre;
     }
 };
