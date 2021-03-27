@@ -9,10 +9,12 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+// 二叉树的中序遍历
 class Solution {
 public:
     // 非递归版本
-    vector<int> postorderTraversal(TreeNode* root) {
+    vector<int> inorderTraversal(TreeNode* root) {
         vector<int> res;
         stack<TreeNode*> stack_node;
         stack<bool> stack_label;
@@ -24,16 +26,16 @@ public:
             TreeNode* cur = stack_node.top();
             bool flag = stack_label.top();
             if (flag) {
-                res.push_back(cur->val);
+                stack_label.pop();
                 stack_node.pop();
-                stack_label.pop();
-            } else {
-                stack_label.pop();
-                stack_label.push(true);
+                res.push_back(cur->val);
                 if (cur->right) {
                     stack_node.push(cur->right);
                     stack_label.push(false);
                 }
+            } else {
+                stack_label.pop();
+                stack_label.push(true);
                 if (cur->left) {
                     stack_node.push(cur->left);
                     stack_label.push(false);
@@ -44,20 +46,20 @@ public:
     }
 
     // 递归版本
-    vector<int> postorderTraversal(TreeNode* root) {
+    vector<int> inorderTraversal(TreeNode* root) {
         vector<int> res;
-        postorder_traversal_helper(res, root);
+        inorderTraversal(res, root);
         return res;
     }
 private:
-    void postorder_traversal_helper(vector<int>& res, TreeNode* root) {
+    void inorderTraversal(vector<int>& res, TreeNode* root) {
         if (!root) return;
         if (root->left) {
-            postorder_traversal_helper(res, root->left);
-        }
-        if (root->right) {
-            postorder_traversal_helper(res, root->right);
+            inorderTraversal(res, root->left);
         }
         res.push_back(root->val);
+        if (root->right) {
+            inorderTraversal(res, root->right);
+        }
     }
 };
